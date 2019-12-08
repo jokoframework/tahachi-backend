@@ -4,7 +4,7 @@ Spring Boot app for remote desktop lock/unlock
 Tahachi comes from guarani. It means guardian, soldier.
 
 This is a REST API that uses JWT for autentication. It uses SSL on port 8443 with a self signed certificate.
-Sample `keystore.jks` is provided for *testing purposes only*.
+Sample `keystore.jks` is provided for **testing purposes only**.
 In real life scenarios you sould customize your security settings, including user/passwords and keystore credentials.
 
 Based on [joko_backend_starter_kit](https://github.com/jokoframework/joko_backend_starter_kit)
