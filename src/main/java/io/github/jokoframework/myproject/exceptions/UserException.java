@@ -17,6 +17,10 @@ public class UserException extends BusinessException {
         super(errorCode, message);
     }
 
+    public UserException(String userNotFound) {
+        super(USER_NOT_FOUND, userNotFound);
+    }
+
     /**
      * Builds a User Not Found Exception
      *

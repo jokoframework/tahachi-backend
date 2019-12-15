@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.jokoframework</groupId>
-    <artifactId>joko-backend-starter-kit</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <artifactId>tahachi-backend</artifactId>
+    <version>0.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>

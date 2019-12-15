@@ -1,6 +1,7 @@
 package io.github.jokoframework.myproject.web.controller;
 
 
+import io.github.jokoframework.myproject.web.request.UserRequestDTO;
 import io.swagger.annotations.*;
 import io.github.jokoframework.security.controller.SecurityConstants;
 import io.github.jokoframework.myproject.constants.ApiPaths;
@@ -55,7 +56,7 @@ public class UserController extends BaseRestController {
         UserResponseDTO response = new UserResponseDTO(userDTO);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
+
     @ApiOperation(value = "Get users",
             notes = "Get all users", position = 2)
     @ApiResponses(value = {
@@ -74,7 +75,7 @@ public class UserController extends BaseRestController {
         response.setSuccess(true);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
+
     @ApiOperation(value = "Export user's list to csv",
             notes = "Get all users and creates a csv file", position = 2)
     @ApiResponses(value = {
@@ -90,12 +91,28 @@ public class UserController extends BaseRestController {
     public ResponseEntity<UsersResponseDTO> getUsersCsvList(@RequestBody @Valid CsvExportRequestDTO request) throws UserException {
         List<UserDTO> list = userManager.findAll();
         byte[] csv = userManager.exportUsersListToCsv(list, request.getColumns());
-        
+
         UsersResponseDTO response = new UsersResponseDTO(list);
         response.setCsv(csv);
         response.setSuccess(true);
-        
+
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Updates user data",
+            notes = "Updates user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Users updated"),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    @RequestMapping(value = ApiPaths.ROOT_USERS, method = RequestMethod.PUT)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = SecurityConstants.AUTH_HEADER_NAME, dataType = "String", paramType = "header", required = true, value = "User Access Token"),
+            @ApiImplicitParam(name = JOKO_STARTER_KIT_VERSION_HEADER, dataType = "String", paramType = "header", required = false, value = "Version", defaultValue = JOKO_STARTER_KIT_VERSION)
+    })
+    public ResponseEntity<UserDTO> update(@RequestBody UserRequestDTO userReqDTO) throws UserException {
+        UserDTO userResponse = userManager.updateUserPassword(userReqDTO.getUsername(), userReqDTO.getPassword());
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
 }

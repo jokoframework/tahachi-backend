@@ -77,4 +77,8 @@ public class UserManagerImpl implements UserManager {
         return CsvUtils.convertToCsv(list, columns, UserDTO.class);
     }
 
+    @Override
+    public UserDTO updateUserPassword(String username, String rawPassword) throws UserException {
+        return userService.update(username, rawPassword);
+    }
 }

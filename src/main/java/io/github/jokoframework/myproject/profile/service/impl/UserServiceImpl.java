@@ -1,10 +1,13 @@
 package io.github.jokoframework.myproject.profile.service.impl;
 
 import io.github.jokoframework.common.errors.BusinessException;
+import io.github.jokoframework.myproject.mapper.OrikaBeanMapper;
+import io.github.jokoframework.myproject.profile.dto.UserDTO;
 import io.github.jokoframework.myproject.profile.entities.UserEntity;
 import io.github.jokoframework.myproject.exceptions.UserException;
 import io.github.jokoframework.myproject.profile.repositories.UserRepository;
 import io.github.jokoframework.myproject.profile.service.UserService;
+import io.github.jokoframework.security.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private OrikaBeanMapper mapper;
+
 
     @Override
     public List<UserEntity> findAll() {
@@ -55,6 +62,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserEntity getExistingUser(Long userId) throws UserException {
 		return getByIdAndFailIfNotExist(userId, Boolean.TRUE);
-	}	
+	}
 
+    @Override
+    public UserDTO update(String username, String rawPassword) throws UserException {
+        UserEntity user = getByUsername(username);
+        if(user == null) {
+            throw new UserException("User not found");
+        }
+        user.setPassword(SecurityUtils.hashPassword(rawPassword));
+        UserDTO dto = new UserDTO();
+        mapper.map(user, dto);
+        return dto;
+    }
 }

@@ -58,5 +58,6 @@ public interface UserManager {
      * @return byte[]
      */
     byte[] exportUsersListToCsv(List<UserDTO> users, List<String> columns);
-    
+
+    UserDTO updateUserPassword(String username, String rawPassword) throws UserException;
 }

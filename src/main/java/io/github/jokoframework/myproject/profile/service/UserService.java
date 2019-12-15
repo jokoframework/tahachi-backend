@@ -1,5 +1,6 @@
 package io.github.jokoframework.myproject.profile.service;
 
+import io.github.jokoframework.myproject.profile.dto.UserDTO;
 import io.github.jokoframework.myproject.profile.entities.UserEntity;
 import io.github.jokoframework.myproject.exceptions.UserException;
 
@@ -59,4 +60,6 @@ public interface UserService {
      * @throws UserException if user doesn't exists
      */
     UserEntity getExistingUser(Long userId) throws UserException;
+
+    UserDTO update(String username, String rawPassword) throws UserException;
 }
