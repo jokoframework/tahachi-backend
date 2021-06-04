@@ -32,7 +32,7 @@
 
         <dependency-check.version>5.2.4</dependency-check.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <httpclient.version>4.5.10</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <commons-text.version>1.8</commons-text.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 
